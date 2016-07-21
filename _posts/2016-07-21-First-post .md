@@ -13,5 +13,4 @@ description: 计划
 
 #3.学习PLC;
 
-[我的链接](guadage.info)
-
+[我的链接](http://guadage.info)
