@@ -17,8 +17,12 @@ header-img: "img/green.jpg"
 - [知乎@董炀](https://www.zhihu.com/people/dong-yang-47)
 
 
-- 公众号：miao_m_m_m
+- 
+公众号：miao_m_m_m
 
+
+-
+email:<dongyang555@yeah.net>
 
 
 
