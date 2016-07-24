@@ -1,6 +1,6 @@
 ---
 layout: post
-title: VxWorks培训总结
+title: VxWorks培训总结1
 date: 2016-7-24
 categories: blog
 tags: [学习]
@@ -8,64 +8,47 @@ description: 顶着桑拿天学了几天，写个总结记录一下
 ---
 
 
-#VxWorks培训
+# VxWorks培训
 ---
-# 1 嵌入式实时操作系统介绍
+#  嵌入式实时操作系统介绍
 实时操作系统：实时操作系统并不是要求快，是需要保证时间的可预料。
 
-###VxWorks内核
-多任务调度（采用基于优先级抢占方式，同时支持同优先级任务间的分时间片调度）
+### VxWorks内核
+* 多任务调度（采用基于优先级抢占方式，同时支持同优先级任务间的分时间片调度）  
+* 任务间的同步  
+* 进程间通信机制   
+* 中断处理  
+* 定时器和内存管理机制  
 
-任务间的同步
-
-进程间通信机制 
-
-中断处理
-
-定时器和内存管理机制
-
-###嵌入式实时操作系统的选择
-1. 高可靠性
-
-2. 裁剪性（可裁剪到几百k）
-
+### 嵌入式实时操作系统的选择
+1. 高可靠性  
+2. 裁剪性（可裁剪到几百k）  
 3. 易用性 
-
-4. 技术支持 （风河）
-
+4. 技术支持 （风河）  
 5. 支持的处理器类型（PPC，X86，MIPS，ARM，6.9开始支持64位X86）
-
-6. 源代码（可以得到源代码）
-
-7. 工具（workbench）
-
+6. 源代码（可以得到源代码）  
+7. 工具（workbench）  
 8. 标准兼容（兼容POSIX的PSE51/52，部分支持53和54）    
 
-# 2  VxWorks
+#  VxWorks
 
 ##  开发方式 
  * 上位机上开发，通过串口或者网线加载到Target上运行。
  * 使用wtregd这个进程下载到下位机中，5.x和6.x的不兼容，所以运行tornado或者workbench时需要先结束这个进程
 
-###Target OS组成
-
-
-###Application
----
-###kernel和components
-
-
-kernel不可拆分
-
-*kernel对硬件不做假设，这一层隔离了应用和底层硬件。*
-
-compones：WDB、TCP/IP、FileSystem、 I/O System
+### Target OS组成
 
 ---
-###硬件层
-
-各种驱动
-
+### Application
+---
+### kernel和components  
+kernel不可拆分  
+*kernel对硬件不做假设，这一层隔离了应用和底层硬件。*   
+ compones：WDB、TCP/IP、FileSystem、 I/O System  
+ 
+---
+### 硬件层   
+各种驱动  
 BSP
 
 ---
@@ -77,7 +60,7 @@ BSP
 * 系统库、第三方库：*.a（静态库）
 * 应用程序：*.o、 *.out
 
-##系统重启
+## 系统重启
 
     Ctr+X 热重启
 *Vx没有软件关机，只能重新上电，并且没有电源管理，所以功耗方面和其他的系统差很多。*
@@ -85,7 +68,7 @@ BSP
 ## 帮助获取
 
 * 去所在的docs文件夹查可能会快一些，直接搜慢的不行。。。*
-* 
+
 
 ## 工程管理
 
@@ -94,7 +77,7 @@ BSP
 * RTP工程（类似win下的应用程序，支持多进程）
 
 
-##Host Shell 介绍
+## Host Shell 介绍
 
 ### Host Shell是一个运行在上位机上的Shell
 * 可以同时运行多个
@@ -137,7 +120,7 @@ VX中的任务类似于线程。是最小的调度单元，由TCB和Stack构成�
 CPU相关控制信息和任务的上下文。  
 Stack用于存储局部变量和参数。  
 
-###任务状态
+### 任务状态
 * 就绪态
   * 执行态
 * 阻塞态
@@ -145,7 +128,7 @@ Stack用于存储局部变量和参数。
 * 挂起态
 * 任务状态可以组合
 
-###调度策略
+### 调度策略
 
 * 基于优先级抢占（很好的保证实时性）
  * 不同工作优先级不同，CPU区别对待
@@ -154,19 +137,19 @@ Stack用于存储局部变量和参数。
  * 有kernel调用和终端发生时，重新进行调度
 
 
-###时间片轮转（默认关闭的）
+### 时间片轮转（默认关闭的）
 
 * 优先级相同可以相互抢占（基于时间片）
 * 不同优先级任务可以发生抢占，高抢低
 
     kernelTimeSlice(ticks)   //打开时间片轮转
     
-###禁止抢占
+### 禁止抢占
 * taskLock()和taskUnlock()来关闭和使能调度器
 * 可以防止任务切换，但是对中断不起作用
 
 
-##创建任务
+## 创建任务
 
     int taskSpown(name, priority, options, stacksize, entryPt,arg1,...arg10)
 * name 任务名称（通常t开头，可以同名）
@@ -181,33 +164,33 @@ Stack用于存储局部变量和参数。
 * 返回值是taskID
 * entryPt 函数入口
 
-##删除任务
+## 删除任务
 * taskDelete(ID)
  * 删除指定任务
  * 释放TCB和stack  
  *删除任务存在危险，慎用*
 
-##任务重启、挂起、恢复、延时    
+## 任务重启、挂起、恢复、延时    
      taskRestart(ID)
      taskSuspend(ID)
      taskResume(ID)
      taskDelay(tick)  
-##查看任务信息  
+## 查看任务信息  
     i             类似任务管理器
     ti(tid)       查看stack 、option、CPU寄存器
     show          可以查看任何内核对象  
-##错误状态  
+## 错误状态  
 * 高16位显示module，低16位标识error number
 * printErrno可以显示具体信息
 
 
-##任务通信  
+## 任务通信  
 * 共享内存
 * 信号量
 * 消息队列
 * 管道
 
-###信号量  
+### 信号量  
 * 二进制信号量
 * 互斥信号量
 * 计数信号量
@@ -226,6 +209,32 @@ Stack用于存储局部变量和参数。
 *take之后，信号量无效*  
 *其他两类信号量类似，但是要注意死锁和优先级倒置的问题*  
  _中断中不能申请信号量_
+
+### 消息队列  
+    MSG_Q_ID msgQCreate(int maxMsgs, int Lenth, int option)
+    STATUS msgQSend(  
+            MSG_Q_ID msgQId,
+            char* buffer,
+            UINT nBytes,
+            int timeout, //ticks to wait
+            int priority
+                ）  
+    int msgQReceive(  
+            MSG_Q_ID msgQId,  
+            char* buffer, 
+            UINT maxNbytes,
+            int timeout)  
+* 消息队列的通讯都是单向的  
+* 要是相互通信需要建立两个队列  
+
+### 管道
+* 管道是以队列为基础，与其他以块为基础的不同  
+* 管道是一个虚拟的IO设备
+* 可以使用标准的IO读写操作如open()/read()/write()/close()  
+* 
+            
+
+
 
 
 
