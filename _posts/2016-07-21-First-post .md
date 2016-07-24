@@ -14,8 +14,7 @@ description: 计划
 #3.学习PLC;
 
 
-<<<<<<< HEAD
+
 
 [我的链接](http://guadage.info)
 =======
->>>>>>> branch 'master' of https://github.com/niguadage/niguadage.github.io
