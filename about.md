@@ -8,7 +8,7 @@ header-img: "img/green.jpg"
 
 - 「持续」并不是坚持，写就是最好的回报
 
-###联系
+###  联系
 
 - [博客：guadage.info](http://guadage.info)
 
